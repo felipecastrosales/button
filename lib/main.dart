@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Floating Button',
       debugShowCheckedModeBanner: false,
       home: Home(),
@@ -16,9 +17,10 @@ class MyApp extends StatelessWidget {
 }
 
 class Home extends StatefulWidget {
+  const Home({super.key});
 
   @override
-  _HomeState createState() => _HomeState();
+  State<StatefulWidget> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
@@ -30,7 +32,7 @@ class _HomeState extends State<Home> {
     super.initState();
 
     platform.setMethodCallHandler((methodCall) async {
-      if(methodCall.method == "touch"){
+      if (methodCall.method == "touch") {
         setState(() {
           count += 1;
         });
@@ -51,35 +53,35 @@ class _HomeState extends State<Home> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
+          children: [
             Container(
               padding: const EdgeInsets.only(bottom: 24),
               child: Text(
                 "$count",
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 72,
                   fontWeight: FontWeight.w800,
                 ),
               ),
             ),
-            RaisedButton(
+            TextButton(
               child: Text("Create"),
-              onPressed: (){
+              onPressed: () {
                 platform.invokeMethod("create");
-              }
+              },
             ),
-            RaisedButton(
+            TextButton(
               child: Text("Show"),
-              onPressed: () async {
+              onPressed: () {
                 platform.invokeMethod("show");
-              }
+              },
             ),
-            RaisedButton(
+            TextButton(
               child: Text("Hide"),
-              onPressed: () async {
+              onPressed: () {
                 platform.invokeMethod("hide");
-              }
+              },
             ),
           ],
         ),
